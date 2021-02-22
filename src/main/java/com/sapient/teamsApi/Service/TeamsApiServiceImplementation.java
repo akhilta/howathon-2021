@@ -2,9 +2,11 @@ package com.sapient.teamsApi.Service;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.sapient.teamsApi.Data.TeamsApiDataImpl;
 
+@Service
 public class TeamsApiServiceImplementation implements TeamsApiService {
 
 	@Autowired

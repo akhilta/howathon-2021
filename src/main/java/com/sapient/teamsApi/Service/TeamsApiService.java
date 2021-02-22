@@ -1,5 +1,8 @@
 package com.sapient.teamsApi.Service;
 
+import org.springframework.stereotype.Controller;
+
+
 public interface TeamsApiService {
 
 	

@@ -1,5 +1,8 @@
 package com.sapient.teamsApi.Data;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class TeamsApiDataImpl implements TeamsApiData {
 
 	@Override
