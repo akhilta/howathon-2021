@@ -28,6 +28,8 @@ public class CitationDataController {
 	
 	@PostMapping("/teamsData")
 	public String teamsData(@RequestBody String data) {
+		System.out.println("------- "+data);
+		System.out.println("over");
 		String action=null;
 		String result="";
 		JSONObject jsonObject=JsonToStringToJson.convertStringtoJson(data);
@@ -50,7 +52,27 @@ public class CitationDataController {
 			break;
 			
 		}
-		return result;
+		return "{\r\n" + 
+				"  \"composeExtension\": {\r\n" + 
+				"    \"attachments\": [\r\n" + 
+				"      {\r\n" + 
+				"        \"content\": {\r\n" + 
+				"          \"text\": \"congrtas bro \"\r\n" + 
+				"        },\r\n" + 
+				"        \"contentType\": \"application/vnd.microsoft.card.hero\",\r\n" + 
+				"        \"preview\": {\r\n" + 
+				"          \"content\": {\r\n" + 
+				"            \"text\": \"\"\r\n" + 
+				"          },\r\n" + 
+				"          \"contentType\": \"application/vnd.microsoft.card.hero\"\r\n" + 
+				"        }\r\n" + 
+				"      }\r\n" + 
+				"    ],\r\n" + 
+				"    \"type\": \"result\",\r\n" + 
+				"    \"attachmentLayout\": \"list\"\r\n" + 
+				"  },\r\n" + 
+				"  \"responseType\": \"composeExtension\"\r\n" + 
+				"}";
 	}
 	
 	

@@ -1,5 +1,7 @@
 package com.sapient.teamsApi.DataDocuments;
 
+import java.util.Date;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -26,6 +28,6 @@ public class MapperCollection {
 	
 	private int points;
 	
-	private String lastrefreshed;
+	private Date timestamp;
 	
 }

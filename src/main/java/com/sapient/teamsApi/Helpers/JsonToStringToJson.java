@@ -10,7 +10,7 @@ public class JsonToStringToJson {
 		JSONObject result=null;
 		try {
 		     JSONObject jsonObject = new JSONObject(string);
-		     System.out.println(jsonObject);
+		     //System.out.println(jsonObject);
 		     result=jsonObject;
 		 
 		}catch (JSONException err){

@@ -1,10 +1,19 @@
 package com.sapient.teamsApi.Data;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.sapient.teamsApi.DataDocuments.MapperCollection;
 
 @Service
 public class TeamsApiDataImpl implements TeamsApiData {
 
+	@Autowired
+	MapperTableRepo mapperTableRepo;
+	
+	
 	@Override
 	public boolean checkPersonLoginStatus(String loginDetails) {
 		// TODO Auto-generated method stub
@@ -29,6 +38,32 @@ public class TeamsApiDataImpl implements TeamsApiData {
 			String to_email) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public MapperCollection getMapperObject(String jsonId) {
+		List<MapperCollection> personMapperObject=mapperTableRepo.findByJsonId(jsonId);
+		
+		
+		return personMapperObject.get(0);
+	}
+
+	public boolean isValidJsonId(String jsonId) {
+		List<MapperCollection> personMapperObject=mapperTableRepo.findByJsonId(jsonId);
+		if(personMapperObject.size()>0) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean saveMapperData(MapperCollection object) {
+		
+		object=mapperTableRepo.save(object);
+		if(object!=null) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 }

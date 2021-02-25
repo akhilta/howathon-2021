@@ -1,10 +1,14 @@
 package com.sapient.teamsApi.Service;
 
+import java.util.*;
+
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sapient.teamsApi.Data.TeamsApiDataImpl;
+import com.sapient.teamsApi.DataDocuments.MapperCollection;
+import com.sapient.teamsApi.Helpers.JsonToStringToJson;
 
 @Service
 public class TeamsApiServiceImplementation implements TeamsApiService {
@@ -51,7 +55,47 @@ public class TeamsApiServiceImplementation implements TeamsApiService {
 
 	@Override
 	public String LoginFunctionality(String loginDetails) {
-		
+		String result=null;
+		JSONObject jsonObject=JsonToStringToJson.convertStringtoJson(loginDetails);
+		JSONObject valueObject=(JSONObject)jsonObject.get("value");
+		JSONObject data=(JSONObject)valueObject.get("data");
+		String email=(String)data.get("Email");
+		JSONObject from=(JSONObject)jsonObject.get("from");
+		String jsonId=(String)from.get("id");
+		String name=(String)from.get("name");
+		String timestamp=(String)jsonObject.get("timestamp");
+		boolean isValidJsonId=teamsApiDataImpl.isValidJsonId(jsonId);
+		if(isValidJsonId) {
+			MapperCollection object=teamsApiDataImpl.getMapperObject(jsonId);
+			System.out.println(object.getName());
+			System.out.println(object.getTimestamp());
+			object.setEmail(email);
+			teamsApiDataImpl.saveMapperData(object);
+		}
+		else {
+			System.out.println("came here");
+			MapperCollection mapperObject=new MapperCollection();
+			mapperObject.setEmail(email);
+			mapperObject.setJsonId(jsonId);
+			mapperObject.setName(name);
+			mapperObject.setPoints(100);
+			
+//			String[] splitTimestamp=timestamp.split("T");
+//			String[] splitTime=splitTimestamp[0].split("-");
+//			System.out.println(timestamp+" "+splitTime[0]+" "+splitTime[1]+" "+splitTime[2]);
+//			int year=Integer.parseInt(splitTime[0]);
+//			int month=Integer.parseInt(splitTime[1]);
+//			int day=Integer.parseInt(splitTime[2]);
+//			//Date date=new Date(year,month,day);
+			
+			
+			
+			Date date=new Date();
+			mapperObject.setTimestamp(date);
+			System.out.println("came here aswell");
+			teamsApiDataImpl.saveMapperData(mapperObject);
+			
+		}
 		return null;
 	}
 
