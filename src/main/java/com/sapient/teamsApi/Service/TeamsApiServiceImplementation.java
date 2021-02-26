@@ -48,7 +48,27 @@ public class TeamsApiServiceImplementation implements TeamsApiService {
 
 	@Override
 	public String citationWritten(String citationData) {
-		
+		String 	result=null;
+		JSONObject jsonObject=JsonToStringToJson.convertStringtoJson(citationData);
+		JSONObject valueObject=(JSONObject)jsonObject.get("value");
+		JSONObject data=(JSONObject)valueObject.get("data");
+		String email=(String)data.get("Email");
+		JSONObject from=(JSONObject)jsonObject.get("from");
+		String jsonId=(String)from.get("id");
+		boolean isValidJsonId=teamsApiDataImpl.isValidJsonId(jsonId);
+		boolean isValidEmail =teamsApiDataImpl.isValidEmail(email);
+		if(isValidJsonId && isValidEmail) {
+			MapperCollection fromObject=teamsApiDataImpl.getMapperObject(jsonId);
+			MapperCollection toObject=teamsApiDataImpl.getMapperObjectWithEmail(email);
+			
+			
+		}
+		else if(!isValidJsonId) {
+			result="please login first.This is just one time login ";
+		}
+		else {
+			result="Rewardee didnt login once";
+		}
 		return null;
 	}
 

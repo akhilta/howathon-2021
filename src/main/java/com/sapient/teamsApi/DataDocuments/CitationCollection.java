@@ -32,6 +32,10 @@ public class CitationCollection {
 	
 	private Date timestamp;
 	
+	private int points;
+	
+	private String type;
+	
 	
 	
 	

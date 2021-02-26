@@ -21,8 +21,12 @@ public class TeamsApiDataImpl implements TeamsApiData {
 	}
 
 	@Override
-	public boolean isValidEmail(String teamsData) {
-		// TODO Auto-generated method stub
+	public boolean isValidEmail(String email) {
+		List<MapperCollection> personMapperObject=mapperTableRepo.findByEmail(email);
+		
+		if(personMapperObject.size()>0) {
+			return true;
+		}
 		return false;
 	}
 
@@ -47,6 +51,15 @@ public class TeamsApiDataImpl implements TeamsApiData {
 		return personMapperObject.get(0);
 	}
 
+
+	public MapperCollection getMapperObjectWithEmail(String email) {
+		List<MapperCollection> personMapperObject=mapperTableRepo.findByEmail(email);
+		
+		
+		return personMapperObject.get(0);
+	}
+	
+	
 	public boolean isValidJsonId(String jsonId) {
 		List<MapperCollection> personMapperObject=mapperTableRepo.findByJsonId(jsonId);
 		if(personMapperObject.size()>0) {
