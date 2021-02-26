@@ -15,5 +15,7 @@ public interface TeamsApiService {
 	boolean checkPersonLoginStatus(String loginDetails);
 	
 	boolean isValidEmail(String teamsData);
+
+	String pointsGiven(String pointsData);
 	
 }
