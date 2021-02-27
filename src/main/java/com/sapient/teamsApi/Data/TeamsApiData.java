@@ -20,4 +20,6 @@ public interface TeamsApiData {
 	boolean saveFilterCitiationToDataBase(FilterCitationCollection object);
 	
 	List<FilterCitationCollection> findFilterCitiationFromDataBase();
+	
+	List<FilterCitationCollection> findFilterCitiationByEmail(String email);
 }
