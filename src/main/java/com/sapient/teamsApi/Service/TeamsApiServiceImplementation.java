@@ -53,7 +53,8 @@ public class TeamsApiServiceImplementation implements TeamsApiService {
 			teamsApiDataImpl.saveCitationData(citationCollection);
 
 			String name=toObject.getName();
-			result="Thank you for writing citation to "+name;
+			String fromName=fromObject.getName();
+			result="Thank"+ fromName+" for adding more points to "+name;
 
 	        createFilterCitiation(toObject.getName(), toObject.getEmail(), "c", 0, new Date(), type);
 
@@ -110,7 +111,8 @@ public class TeamsApiServiceImplementation implements TeamsApiService {
 					teamsApiDataImpl.saveCitationData(citationCollection);
 
 					String name=toObject.getName();
-					result="Thank you for adding more points to "+name;
+					String fromName=fromObject.getName();
+					result="Thank"+ fromName+" for adding more points to "+name;
 
 					createFilterCitiation(toObject.getName(), toObject.getEmail(), "p", points, new Date(), type);
 
@@ -125,7 +127,8 @@ public class TeamsApiServiceImplementation implements TeamsApiService {
 						teamsApiDataImpl.saveCitationData(citationCollection);
 
 						String name=toObject.getName();
-						result="Thank you for adding more points to "+name;
+						String fromName=fromObject.getName();
+						result="Thank"+ fromName+" for adding more points to "+name;
 
 						createFilterCitiation(toObject.getName(), toObject.getEmail(), "p", points, new Date(), type);
 						
