@@ -72,7 +72,21 @@ public class TeamsApiServiceImplementation implements TeamsApiService {
 		}
 		return result;
 	}
-
+	
+	public static boolean IntegerStringValidation(String s, int radix) {
+	    if(s.isEmpty()) 
+	    	return false;
+	    for(int i = 0; i < s.length(); i++) {
+	        if(i == 0 && s.charAt(i) == '-') {
+	            if(s.length() == 1) 
+	            	return false;
+	            else continue;
+	        }
+	        if(Character.digit(s.charAt(i),radix) < 0) 
+	        	return false;
+	    }
+	    return true;
+	}
 	@Override
 	public String pointsGiven(String pointsData) {
 		String 	result=null;
@@ -93,6 +107,11 @@ public class TeamsApiServiceImplementation implements TeamsApiService {
 				return "Sorry! You cannot send points to yourself";
 			}
 			String pointsString=(String)data.get("points");
+			boolean flag=IntegerStringValidation(pointsString,10);
+			if(!flag)
+				return "Please enter valid points. (points should be numeric only)";
+			if(flag && pointsString.charAt(0)=='-')
+				return "Please enter valid points. (points should be a positive number)";
 			int points=Integer.parseInt(pointsString);
 			String type=(String)data.get("type");
 			CitationCollection citationCollection=new CitationCollection();
@@ -267,5 +286,5 @@ public class TeamsApiServiceImplementation implements TeamsApiService {
 		return object;
 	}
 
-
+	
 }
