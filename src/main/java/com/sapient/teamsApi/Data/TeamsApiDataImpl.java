@@ -129,4 +129,15 @@ public class TeamsApiDataImpl implements TeamsApiData {
 
 	}
 
+	@Override
+	public List<CitationCollection> findCitiationByEmail(String to_email) {
+		List<CitationCollection> filterCitaionObject = citationTableRepo.findByToEmail(to_email);
+
+		if (filterCitaionObject != null) {
+			return filterCitaionObject;
+		} else {
+			return null;
+		}
+	}
+
 }

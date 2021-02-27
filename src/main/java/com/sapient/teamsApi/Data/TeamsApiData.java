@@ -3,6 +3,7 @@ package com.sapient.teamsApi.Data;
 import java.util.Date;
 import java.util.List;
 
+import com.sapient.teamsApi.DataDocuments.CitationCollection;
 import com.sapient.teamsApi.DataDocuments.FilterCitationCollection;
 
 public interface TeamsApiData {
@@ -22,4 +23,6 @@ public interface TeamsApiData {
 	List<FilterCitationCollection> findFilterCitiationFromDataBase();
 	
 	List<FilterCitationCollection> findFilterCitiationByEmail(String email);
+	
+	List<CitationCollection> findCitiationByEmail(String to_email);
 }

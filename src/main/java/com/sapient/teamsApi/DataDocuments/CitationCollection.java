@@ -26,9 +26,9 @@ public class CitationCollection {
 	
 	private String citation;
 	
-	private String from_email;
+	private String fromEmail;
 	
-	private String to_email;
+	private String toEmail;
 	
 	private Date timestamp;
 	
