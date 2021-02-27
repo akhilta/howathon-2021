@@ -38,6 +38,10 @@ public class TeamsApiServiceImplementation implements TeamsApiService {
 		if(isValidJsonId && isValidEmail) {
 			MapperCollection fromObject=teamsApiDataImpl.getMapperObject(jsonId);
 			MapperCollection toObject=teamsApiDataImpl.getMapperObjectWithEmail(email);
+			if(toObject.getEmail().equals(fromObject.getEmail()))
+			{
+				return "Sorry! You cannot write citation to yourself";
+			}
 			String citation=(String)data.get("Citation");
 			String type=(String)data.get("type");
 			CitationCollection citationCollection=new CitationCollection();
@@ -54,7 +58,7 @@ public class TeamsApiServiceImplementation implements TeamsApiService {
 
 			String name=toObject.getName();
 			String fromName=fromObject.getName();
-			result="Thank"+ fromName+" for adding more points to "+name;
+			result="Thank you "+ fromName+" for adding more points to "+name;
 
 	        createFilterCitiation(toObject.getName(), toObject.getEmail(), "c", 0, new Date(), type);
 
@@ -80,9 +84,14 @@ public class TeamsApiServiceImplementation implements TeamsApiService {
 		String jsonId=(String)from.get("id");
 		boolean isValidJsonId=teamsApiDataImpl.isValidJsonId(jsonId);
 		boolean isValidEmail =teamsApiDataImpl.isValidEmail(email);
+		
 		if(isValidJsonId && isValidEmail) {
 			MapperCollection fromObject=teamsApiDataImpl.getMapperObject(jsonId);
 			MapperCollection toObject=teamsApiDataImpl.getMapperObjectWithEmail(email);
+			if(toObject.getEmail().equals(fromObject.getEmail()))
+			{
+				return "Sorry! You cannot send points to yourself";
+			}
 			String pointsString=(String)data.get("points");
 			int points=Integer.parseInt(pointsString);
 			String type=(String)data.get("type");
@@ -112,7 +121,7 @@ public class TeamsApiServiceImplementation implements TeamsApiService {
 
 					String name=toObject.getName();
 					String fromName=fromObject.getName();
-					result="Thank"+ fromName+" for adding more points to "+name;
+					result="Thank you "+ fromName+" for adding more points to "+name;
 
 					createFilterCitiation(toObject.getName(), toObject.getEmail(), "p", points, new Date(), type);
 
@@ -128,7 +137,7 @@ public class TeamsApiServiceImplementation implements TeamsApiService {
 
 						String name=toObject.getName();
 						String fromName=fromObject.getName();
-						result="Thank"+ fromName+" for adding more points to "+name;
+						result="Thank you "+ fromName+" for adding more points to "+name;
 
 						createFilterCitiation(toObject.getName(), toObject.getEmail(), "p", points, new Date(), type);
 						
