@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 
+import com.sapient.teamsApi.DataDocuments.CitationCollection;
 import com.sapient.teamsApi.DataDocuments.FilterCitationCollection;
 
 public interface TeamsApiService {
@@ -25,5 +26,7 @@ public interface TeamsApiService {
 	List<FilterCitationCollection> findFilterCitiation();
 	
 	List<FilterCitationCollection> findFilterCitiationByEmail(String email);
+	
+	List<CitationCollection> findCitiationByEmail(String to_email);
 
 }

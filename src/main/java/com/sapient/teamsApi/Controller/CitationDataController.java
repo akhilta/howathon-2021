@@ -10,9 +10,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sapient.teamsApi.Data.CitationTableRepo;
 import com.sapient.teamsApi.Data.MapperTableRepo;
+import com.sapient.teamsApi.DataDocuments.CitationCollection;
 import com.sapient.teamsApi.DataDocuments.FilterCitationCollection;
 import com.sapient.teamsApi.DataDocuments.MapperCollection;
 import com.sapient.teamsApi.Helpers.JsonToStringToJson;
@@ -23,6 +27,9 @@ public class CitationDataController {
 
 	@Autowired
 	private MapperTableRepo mapperTableRepo;
+	
+	@Autowired
+	private CitationTableRepo citationTableRepo;
 
 	@Autowired
 	private TeamsApiServiceImplementation teamsApiServiceImplementation;
@@ -88,6 +95,17 @@ public class CitationDataController {
 		}
 
 	}
+	
+	@PostMapping("/createCitation")
+	public ResponseEntity<?> createCitaion(@RequestBody MapperCollection mp) {
+		try {
+			mapperTableRepo.save(mp);
+			return new ResponseEntity<MapperCollection>(mp, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<String>("somthing went wrong", HttpStatus.BAD_REQUEST);
+		}
+
+	}
 
 	@GetMapping("/hello")
 	public ResponseEntity<?> storeFilterCitation() {
@@ -124,6 +142,22 @@ public class CitationDataController {
 			List<FilterCitationCollection> object=	teamsApiServiceImplementation.findFilterCitiationByEmail(email);
 		    System.out.println(object);
 			return new ResponseEntity<List<FilterCitationCollection>>(object,HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<String>("somthing went wrong", HttpStatus.BAD_REQUEST);
+		}
+
+	}
+	
+	@GetMapping("/getCitationByEmail")
+	public ResponseEntity<?> getCitationByEmail(@RequestParam(name = "email") String email) {
+		try {
+		    System.out.println(email);
+		    
+		    //email ="napa.manoj@publicisgroupe.net";
+		    System.out.println(email);
+			List<CitationCollection> object= teamsApiServiceImplementation.findCitiationByEmail(email);
+		    System.out.println(object);
+			return new ResponseEntity<List<CitationCollection>>(object,HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<String>("somthing went wrong", HttpStatus.BAD_REQUEST);
 		}

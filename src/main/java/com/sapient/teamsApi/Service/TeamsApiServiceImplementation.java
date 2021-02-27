@@ -43,14 +43,15 @@ public class TeamsApiServiceImplementation implements TeamsApiService {
 			CitationCollection citationCollection=new CitationCollection();
 			citationCollection.setCitation(citation);
 			citationCollection.setFrom(fromObject.getName());
-			citationCollection.setFrom_email(fromObject.getEmail());
+			citationCollection.setFromEmail(fromObject.getEmail());
 			citationCollection.setPoints(0);
 			citationCollection.setTimestamp(new Date());
 			citationCollection.setTo(toObject.getName());
-			citationCollection.setTo_email(toObject.getEmail());
+			citationCollection.setToEmail(toObject.getEmail());
 			citationCollection.setType(type);
 
 			teamsApiDataImpl.saveCitationData(citationCollection);
+	        createFilterCitiation(toObject.getName(), toObject.getEmail(), "c", 0, new Date(), type);
 			result="Succesfull";
 		}
 		else if(!isValidJsonId) {
@@ -83,11 +84,11 @@ public class TeamsApiServiceImplementation implements TeamsApiService {
 			CitationCollection citationCollection=new CitationCollection();
 			citationCollection.setCitation(null);
 			citationCollection.setFrom(fromObject.getName());
-			citationCollection.setFrom_email(fromObject.getEmail());
+			citationCollection.setFromEmail(fromObject.getEmail());
 			citationCollection.setPoints(points);
 			citationCollection.setTimestamp(new Date());
 			citationCollection.setTo(toObject.getName());
-			citationCollection.setTo_email(toObject.getEmail());
+			citationCollection.setToEmail(toObject.getEmail());
 			citationCollection.setType(type);
 			Date lastrefreshed=fromObject.getTimestamp();
 			Date presentDate=new Date();
@@ -103,6 +104,8 @@ public class TeamsApiServiceImplementation implements TeamsApiService {
 					fromObject.setPoints(100-points);
 					teamsApiDataImpl.saveMapperData(fromObject);
 					teamsApiDataImpl.saveCitationData(citationCollection);
+					createFilterCitiation(toObject.getName(), toObject.getEmail(), "p", points, new Date(), type);
+					
 					result="Succesfull";
 				}
 				else {
@@ -113,6 +116,8 @@ public class TeamsApiServiceImplementation implements TeamsApiService {
 						fromObject.setPoints(fromObject.getPoints()-points);
 						teamsApiDataImpl.saveMapperData(fromObject);
 						teamsApiDataImpl.saveCitationData(citationCollection);
+						createFilterCitiation(toObject.getName(), toObject.getEmail(), "p", points, new Date(), type);
+						
 						result="Succesfull";
 					}
 				}
@@ -217,6 +222,13 @@ public class TeamsApiServiceImplementation implements TeamsApiService {
 	@Override
 	public List<FilterCitationCollection> findFilterCitiationByEmail(String email) {
 		List<FilterCitationCollection> object = teamsApiDataImpl.findFilterCitiationByEmail(email);
+
+		return object;
+	}
+
+	@Override
+	public List<CitationCollection> findCitiationByEmail(String to_email) {
+		List<CitationCollection> object = teamsApiDataImpl.findCitiationByEmail(to_email);
 
 		return object;
 	}
