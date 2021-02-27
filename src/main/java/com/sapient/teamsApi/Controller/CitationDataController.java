@@ -55,14 +55,32 @@ public class CitationDataController {
 			break;
 
 		}
-		return "{\r\n" + "  \"composeExtension\": {\r\n" + "    \"attachments\": [\r\n" + "      {\r\n"
-				+ "        \"content\": {\r\n" + "          \"text\": \"congrtas bro \"\r\n" + "        },\r\n"
-				+ "        \"contentType\": \"application/vnd.microsoft.card.hero\",\r\n" + "        \"preview\": {\r\n"
-				+ "          \"content\": {\r\n" + "            \"text\": \"\"\r\n" + "          },\r\n"
-				+ "          \"contentType\": \"application/vnd.microsoft.card.hero\"\r\n" + "        }\r\n"
-				+ "      }\r\n" + "    ],\r\n" + "    \"type\": \"result\",\r\n"
-				+ "    \"attachmentLayout\": \"list\"\r\n" + "  },\r\n" + "  \"responseType\": \"composeExtension\"\r\n"
-				+ "}";
+		String returnResult="{\r\n"
+				+ "  \"composeExtension\": {\r\n"
+				+ "    \"attachments\": [\r\n"
+				+ "      {\r\n"
+				+ "        \"content\": {\r\n"
+				+ "          \"text\": \r\n"
+				+ ""+"\""+result+"\""+"\r\n"
+						+ "        },\r\n"
+						+ "        \"contentType\": \"application/vnd.microsoft.card.hero\",\r\n"
+						+ "        \"preview\": {\r\n"
+						+ "          \"content\": {\r\n"
+						+ "            \"text\": \"\"\r\n"
+						+ "          },\r\n"
+						+ "          \"contentType\": \"application/vnd.microsoft.card.hero\"\r\n"
+						+ "        }\r\n"
+						+ "      }\r\n"
+						+ "    ],\r\n"
+						+ "    \"type\": \"result\",\r\n"
+						+ "    \"attachmentLayout\": \"list\"\r\n"
+						+ "  },\r\n"
+						+ "  \"responseType\": \"composeExtension\"\r\n"
+						+ "}\r\n"
+						+ "";	
+
+		System.out.println(returnResult);
+		return returnResult; 
 	}
 
 	@GetMapping("/getmappings")

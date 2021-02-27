@@ -51,7 +51,8 @@ public class TeamsApiServiceImplementation implements TeamsApiService {
 			citationCollection.setType(type);
 
 			teamsApiDataImpl.saveCitationData(citationCollection);
-			result="Succesfull";
+			String name=toObject.getName();
+			result="Thank you for writing citation to "+name;
 		}
 		else if(!isValidJsonId) {
 			result="please login first.This is just one time login ";
@@ -103,7 +104,8 @@ public class TeamsApiServiceImplementation implements TeamsApiService {
 					fromObject.setPoints(100-points);
 					teamsApiDataImpl.saveMapperData(fromObject);
 					teamsApiDataImpl.saveCitationData(citationCollection);
-					result="Succesfull";
+					String name=toObject.getName();
+					result="Thank you for adding more points to "+name;
 				}
 				else {
 					if(points>fromObject.getPoints()) {
@@ -113,7 +115,8 @@ public class TeamsApiServiceImplementation implements TeamsApiService {
 						fromObject.setPoints(fromObject.getPoints()-points);
 						teamsApiDataImpl.saveMapperData(fromObject);
 						teamsApiDataImpl.saveCitationData(citationCollection);
-						result="Succesfull";
+						String name=toObject.getName();
+						result="Thank you for adding more points to "+name;
 					}
 				}
 
@@ -133,7 +136,7 @@ public class TeamsApiServiceImplementation implements TeamsApiService {
 
 	@Override
 	public String LoginFunctionality(String loginDetails) {
-		String result = null;
+		String result = "";
 		JSONObject jsonObject = JsonToStringToJson.convertStringtoJson(loginDetails);
 		JSONObject valueObject = (JSONObject) jsonObject.get("value");
 		JSONObject data = (JSONObject) valueObject.get("data");
@@ -148,7 +151,16 @@ public class TeamsApiServiceImplementation implements TeamsApiService {
 			System.out.println(object.getName());
 			System.out.println(object.getTimestamp());
 			object.setEmail(email);
-			teamsApiDataImpl.saveMapperData(object);
+			boolean saveEntry=teamsApiDataImpl.saveMapperData(object);
+			if(saveEntry)
+			{
+			result="Log in credentials updated succesfully!"+"\r\n"+"Want to say Thank you! to a team member? Go to the createCitation in Teams chat and leave a Recognition Note.\r\n"
+					+ "Know someone who goes above and beyond and really lives the core values? Go to the recognition tool in Teams chat and submit a recognition or send points. \r\n"
+					+ "";
+			}
+			else {
+				result="Something went wrong! Your credentials updation is unsuccessful, please try later";
+			}
 		} else {
 			System.out.println("came here");
 			MapperCollection mapperObject = new MapperCollection();
@@ -173,9 +185,11 @@ public class TeamsApiServiceImplementation implements TeamsApiService {
 			mapperObject.setTimestamp(date);
 			System.out.println("came here aswell");
 			teamsApiDataImpl.saveMapperData(mapperObject);
-
+			result="Logged in succesfully!"+"\r\n"+ "Want to say Thank you! to a team member? Go to the createCitation in Teams chat and leave a Recognition Note.\r\n"
+					+ "Know someone who goes above and beyond and really lives the core values? Go to the recognition tool in Teams chat and submit a recognition or send points. \r\n"
+					+ "";
 		}
-		return null;
+		return result;
 	}
 
 	@Override
