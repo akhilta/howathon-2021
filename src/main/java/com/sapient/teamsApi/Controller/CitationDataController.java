@@ -113,4 +113,20 @@ public class CitationDataController {
 		}
 
 	}
+	
+	@PostMapping("/getFilterByEmail")
+	public ResponseEntity<?> getFilterCitationByEmail(@RequestBody String email) {
+		try {
+		    System.out.println(email);
+		    
+		    //email ="napa.manoj@publicisgroupe.net";
+		    System.out.println(email);
+			List<FilterCitationCollection> object=	teamsApiServiceImplementation.findFilterCitiationByEmail(email);
+		    System.out.println(object);
+			return new ResponseEntity<List<FilterCitationCollection>>(object,HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<String>("somthing went wrong", HttpStatus.BAD_REQUEST);
+		}
+
+	}
 }

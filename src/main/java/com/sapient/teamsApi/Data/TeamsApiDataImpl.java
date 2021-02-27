@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 import com.sapient.teamsApi.DataDocuments.FilterCitationCollection;
 import com.sapient.teamsApi.DataDocuments.CitationCollection;
 import com.sapient.teamsApi.DataDocuments.MapperCollection;
@@ -17,17 +16,15 @@ public class TeamsApiDataImpl implements TeamsApiData {
 	@Autowired
 	MapperTableRepo mapperTableRepo;
 
-
 	@Autowired
 	FilterCitationTableRepo filterCitationTableRepo;
-
 
 	@Autowired
 	CitationTableRepo citationTableRepo;
 
 	@Override
 	public boolean checkPersonLoginStatus(String loginDetails) {
-		// TODO Auto-generated method stub
+
 		return false;
 	}
 
@@ -44,14 +41,14 @@ public class TeamsApiDataImpl implements TeamsApiData {
 	@Override
 	public boolean addCitationToDataBase(String from, String to, String citation, String timeStamp, String from_email,
 			String to_email) {
-		// TODO Auto-generated method stub
+
 		return false;
 	}
 
 	@Override
 	public boolean addPointsToDataBase(String from, String to, String points, String timeStamp, String from_email,
 			String to_email) {
-		// TODO Auto-generated method stub
+
 		return false;
 	}
 
@@ -87,7 +84,7 @@ public class TeamsApiDataImpl implements TeamsApiData {
 
 	@Override
 	public boolean saveFilterCitiationToDataBase(FilterCitationCollection object) {
-		
+
 		filterCitationTableRepo.save(object);
 		if (object != null) {
 			return true;
@@ -96,30 +93,40 @@ public class TeamsApiDataImpl implements TeamsApiData {
 		}
 
 	}
-	
+
 	@Override
 	public List<FilterCitationCollection> findFilterCitiationFromDataBase() {
-		
-		List<FilterCitationCollection> object =filterCitationTableRepo.findAll();
-		System.out.println(object.size());
+
+		List<FilterCitationCollection> object = filterCitationTableRepo.findAll();
+
 		if (object != null) {
 			return object;
 		} else {
 			return null;
 		}
-		
 
 	}
 
 	public boolean saveCitationData(CitationCollection citationCollection) {
-		citationCollection=citationTableRepo.save(citationCollection);
-		if(citationCollection!=null) {
+		citationCollection = citationTableRepo.save(citationCollection);
+		if (citationCollection != null) {
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
-		
+
+	}
+
+	@Override
+	public List<FilterCitationCollection> findFilterCitiationByEmail(String email) {
+		List<FilterCitationCollection> filterCitaionObject = filterCitationTableRepo.findByEmail(email);
+
+		if (filterCitaionObject != null) {
+			return filterCitaionObject;
+		} else {
+			return null;
+		}
+
 	}
 
 }

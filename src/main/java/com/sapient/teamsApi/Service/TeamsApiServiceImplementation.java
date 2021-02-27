@@ -214,5 +214,12 @@ public class TeamsApiServiceImplementation implements TeamsApiService {
 		return object;
 	}
 
+	@Override
+	public List<FilterCitationCollection> findFilterCitiationByEmail(String email) {
+		List<FilterCitationCollection> object = teamsApiDataImpl.findFilterCitiationByEmail(email);
+
+		return object;
+	}
+
 
 }
