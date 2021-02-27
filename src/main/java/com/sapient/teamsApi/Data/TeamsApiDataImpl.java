@@ -6,7 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import com.sapient.teamsApi.DataDocuments.FilterCitationCollection;
+import com.sapient.teamsApi.DataDocuments.CitationCollection;
 import com.sapient.teamsApi.DataDocuments.MapperCollection;
 
 @Service
@@ -15,8 +17,13 @@ public class TeamsApiDataImpl implements TeamsApiData {
 	@Autowired
 	MapperTableRepo mapperTableRepo;
 
+
 	@Autowired
 	FilterCitationTableRepo filterCitationTableRepo;
+
+
+	@Autowired
+	CitationTableRepo citationTableRepo;
 
 	@Override
 	public boolean checkPersonLoginStatus(String loginDetails) {
@@ -102,6 +109,17 @@ public class TeamsApiDataImpl implements TeamsApiData {
 		}
 		
 
+	}
+
+	public boolean saveCitationData(CitationCollection citationCollection) {
+		citationCollection=citationTableRepo.save(citationCollection);
+		if(citationCollection!=null) {
+			return true;
+		}
+		else {
+			return false;
+		}
+		
 	}
 
 }

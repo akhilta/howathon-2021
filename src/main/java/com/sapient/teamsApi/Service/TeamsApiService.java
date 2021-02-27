@@ -17,8 +17,12 @@ public interface TeamsApiService {
 
 	boolean isValidEmail(String teamsData);
 
+
 	boolean createFilterCitiation(String name, String email, String citationType, int points, Date timestamp,
 			String type);
+
+	String pointsGiven(String pointsData);
+
 	
 	List<FilterCitationCollection> findFilterCitiation();
 

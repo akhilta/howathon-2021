@@ -47,6 +47,9 @@ public class CitationDataController {
 		case "LoginToRandR":
 			result = teamsApiServiceImplementation.LoginFunctionality(data);
 			break;
+		case "sendPoints":
+			result=teamsApiServiceImplementation.pointsGiven(data);
+			break;
 		default:
 			result = "somethingWentWrongPleaseTryAgain";
 			break;
