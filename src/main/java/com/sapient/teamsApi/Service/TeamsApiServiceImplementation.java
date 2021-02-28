@@ -38,6 +38,10 @@ public class TeamsApiServiceImplementation implements TeamsApiService {
 		if(isValidJsonId && isValidEmail) {
 			MapperCollection fromObject=teamsApiDataImpl.getMapperObject(jsonId);
 			MapperCollection toObject=teamsApiDataImpl.getMapperObjectWithEmail(email);
+			if(toObject.getEmail().equals(fromObject.getEmail()))
+			{
+				return "Sorry! You cannot write citation to yourself";
+			}
 			String citation=(String)data.get("Citation");
 			String type=(String)data.get("type");
 			CitationCollection citationCollection=new CitationCollection();
@@ -54,7 +58,7 @@ public class TeamsApiServiceImplementation implements TeamsApiService {
 
 			String name=toObject.getName();
 			String fromName=fromObject.getName();
-			result="Thank"+ fromName+" for adding more points to "+name;
+			result="Thank you "+ fromName+" for adding more points to "+name;
 
 	        createFilterCitiation(toObject.getName(), toObject.getEmail(), "c", 0, new Date(), type);
 
@@ -68,7 +72,21 @@ public class TeamsApiServiceImplementation implements TeamsApiService {
 		}
 		return result;
 	}
-
+	
+	public static boolean IntegerStringValidation(String s, int radix) {
+	    if(s.isEmpty()) 
+	    	return false;
+	    for(int i = 0; i < s.length(); i++) {
+	        if(i == 0 && s.charAt(i) == '-') {
+	            if(s.length() == 1) 
+	            	return false;
+	            else continue;
+	        }
+	        if(Character.digit(s.charAt(i),radix) < 0) 
+	        	return false;
+	    }
+	    return true;
+	}
 	@Override
 	public String pointsGiven(String pointsData) {
 		String 	result=null;
@@ -80,10 +98,20 @@ public class TeamsApiServiceImplementation implements TeamsApiService {
 		String jsonId=(String)from.get("id");
 		boolean isValidJsonId=teamsApiDataImpl.isValidJsonId(jsonId);
 		boolean isValidEmail =teamsApiDataImpl.isValidEmail(email);
+		
 		if(isValidJsonId && isValidEmail) {
 			MapperCollection fromObject=teamsApiDataImpl.getMapperObject(jsonId);
 			MapperCollection toObject=teamsApiDataImpl.getMapperObjectWithEmail(email);
+			if(toObject.getEmail().equals(fromObject.getEmail()))
+			{
+				return "Sorry! You cannot send points to yourself";
+			}
 			String pointsString=(String)data.get("points");
+			boolean flag=IntegerStringValidation(pointsString,10);
+			if(!flag)
+				return "Please enter valid points. (points should be numeric only)";
+			if(flag && pointsString.charAt(0)=='-')
+				return "Please enter valid points. (points should be a positive number)";
 			int points=Integer.parseInt(pointsString);
 			String type=(String)data.get("type");
 			CitationCollection citationCollection=new CitationCollection();
@@ -112,7 +140,7 @@ public class TeamsApiServiceImplementation implements TeamsApiService {
 
 					String name=toObject.getName();
 					String fromName=fromObject.getName();
-					result="Thank"+ fromName+" for adding more points to "+name;
+					result="Thank you "+ fromName+" for adding more points to "+name;
 
 					createFilterCitiation(toObject.getName(), toObject.getEmail(), "p", points, new Date(), type);
 
@@ -128,7 +156,7 @@ public class TeamsApiServiceImplementation implements TeamsApiService {
 
 						String name=toObject.getName();
 						String fromName=fromObject.getName();
-						result="Thank"+ fromName+" for adding more points to "+name;
+						result="Thank you "+ fromName+" for adding more points to "+name;
 
 						createFilterCitiation(toObject.getName(), toObject.getEmail(), "p", points, new Date(), type);
 						
@@ -258,5 +286,5 @@ public class TeamsApiServiceImplementation implements TeamsApiService {
 		return object;
 	}
 
-
+	
 }
