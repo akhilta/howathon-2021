@@ -129,12 +129,15 @@ public class TeamsApiServiceImplementation implements TeamsApiService {
 			int presentYear=presentDate.getYear();
 			int lastRefreshedMonth=lastrefreshed.getMonth();
 			int presentMonth=presentDate.getMonth();
+			System.out.println(presentYear + lastRefreshedYear + presentMonth + lastRefreshedMonth);
 			if(points>100) {
 				result="You cannot give more than 100 points";
 			}
 			else {
 				if(presentYear>lastRefreshedYear ||  presentMonth>lastRefreshedMonth) {
+					System.out.println("------------>");
 					fromObject.setPoints(100-points);
+					fromObject.setTimestamp(new Date());
 					teamsApiDataImpl.saveMapperData(fromObject);
 					teamsApiDataImpl.saveCitationData(citationCollection);
 
@@ -151,6 +154,7 @@ public class TeamsApiServiceImplementation implements TeamsApiService {
 					}
 					else {
 						fromObject.setPoints(fromObject.getPoints()-points);
+						fromObject.setTimestamp(new Date());
 						teamsApiDataImpl.saveMapperData(fromObject);
 						teamsApiDataImpl.saveCitationData(citationCollection);
 
